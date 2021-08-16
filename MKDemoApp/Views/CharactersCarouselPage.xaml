@@ -1,0 +1,216 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions:BaseContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:abstractions="clr-namespace:MKDemoApp.Abstractions;assembly=MKDemoApp"
+    xmlns:behaviors="clr-namespace:MKDemoApp.Behaviors;assembly=MKDemoApp"
+    xmlns:extensions="clr-namespace:MKDemoApp.Extensions;assembly=MKDemoApp"
+    xmlns:helpers="clr-namespace:MKDemoApp.Helpers;assembly=MKDemoApp"
+    xmlns:models="clr-namespace:MKDemoApp.Models;assembly=MKDemoApp"
+    xmlns:viewModels="clr-namespace:MKDemoApp.ViewModels;assembly=MKDemoApp"
+    xmlns:views="clr-namespace:MKDemoApp.Views;assembly=MKDemoApp"
+    x:Class="MKDemoApp.Views.CharactersCarouselPage"
+    x:DataType="viewModels:CharactersCarouselViewModel"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="{StaticResource PagesBackgroundColor}">
+
+    <abstractions:BaseContentPage.Resources>
+
+        <Style x:Key="LocalBorderBoxViewStyle" TargetType="BoxView">
+
+            <Setter Property="Color" Value="{StaticResource BrilliantSilverColor}" />
+        </Style>
+
+        <Style x:Key="LocalButtonStyle" TargetType="Button">
+
+            <Setter Property="TextColor" Value="{StaticResource BrilliantSilverColor}" />
+            <Setter Property="FontFamily" Value="{x:Static helpers:Constants+Fonts.MkTitle}" />
+            <Setter Property="BackgroundColor" Value="Black" />
+        </Style>
+    </abstractions:BaseContentPage.Resources>
+
+    <abstractions:BaseContentPage.Content>
+
+        <Grid
+            RowDefinitions="Auto,*"
+            RowSpacing="0">
+
+            <!--#region Background-->
+
+            <ffImageLoading:CachedImage
+                Source="{extensions:FFImageResource Source={x:Static helpers:Constants+Images.Logo}}"
+                Aspect="AspectFit"
+                DownsampleToViewSize="True"
+                Margin="70"
+                Grid.Row="0"
+                Grid.RowSpan="2" />
+
+            <!--#endregion Background-->
+
+            <!--#region NavBar-->
+
+            <Grid
+                ColumnDefinitions="115,*"
+                ColumnSpacing="0"
+                WidthRequest="125"
+                HeightRequest="50"
+                Padding="5"
+                Grid.Row="0">
+
+                <Grid
+                    WidthRequest="115"
+                    HeightRequest="40"
+                    Grid.Column="0">
+
+                    <BoxView
+                        Color="{StaticResource BrilliantSilverColor}"
+                        WidthRequest="115"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Grid.Column="0">
+                        <BoxView.Clip>
+
+                            <!--BUG iOS wrong clipping-->
+                            <PathGeometry
+                                Figures="m 15 0 h 100 a 35 35 0 0 1 -15 20 a 35 35 0 0 1 15 20 h -100 a 35 35 0 0 0 -15 -20 a 35 35 0 0 0 15 -20 z" />
+                        </BoxView.Clip>
+                    </BoxView>
+
+                    <Button
+                        Style="{StaticResource LocalButtonStyle}"
+                        Command="{Binding GoBackCommand}"
+                        Text="{x:Static helpers:Constants+Texts.Back}"
+                        WidthRequest="115"
+                        HeightRequest="40"
+                        HorizontalOptions="Start"
+                        VerticalOptions="Center"
+                        Grid.Column="0">
+                        <Button.Clip>
+
+                            <!--BUG iOS wrong clipping-->
+                            <PathGeometry
+                                Figures="m 17 2 h 95 a 35 35 0 0 1 -15 18 a 35 35 0 0 1 15 18 h -95 a 35 35 0 0 0 -15 -18 a 35 35 0 0 0 15 -18 z" />
+                        </Button.Clip>
+                    </Button>
+                </Grid>
+
+                <Label
+                    Style="{StaticResource SilverTitleLabelStyle}"
+                    Text="{x:Static helpers:Constants+Texts.Characters}"
+                    FontSize="25"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    InputTransparent="True"
+                    Grid.Column="0"
+                    Grid.ColumnSpan="2" />
+
+                <BoxView
+                    Color="{StaticResource BrilliantSilverColor}"
+                    HeightRequest="2"
+                    Margin="5"
+                    VerticalOptions="End"
+                    Grid.Column="1" />
+            </Grid>
+
+            <!--#endregion NavBar-->
+
+            <!--#region Content-->
+
+            <Grid
+                RowDefinitions="60,Auto,80"
+                RowSpacing="0"
+                Grid.Row="1">
+
+                <Label
+                    Style="{StaticResource WhiteTitleLabelStyle}"
+                    Text="{x:Static helpers:Constants+Texts.ChooseYourFighter}"
+                    FontSize="30"
+                    HeightRequest="30"
+                    HorizontalTextAlignment="Center"
+                    VerticalTextAlignment="Center"
+                    Margin="0,20,0,0"
+                    Grid.Row="0" />
+
+                <CarouselView
+                    ItemsSource="{Binding Characters}"
+                    CurrentItem="{Binding CurrentCharacter}"
+                    IsScrollAnimated="False"
+                    HorizontalScrollBarVisibility="Never"
+                    Loop="False"
+                    VerticalOptions="EndAndExpand"
+                    Grid.Row="0"
+                    Grid.RowSpan="3">
+                    <CarouselView.Behaviors>
+
+                        <behaviors:ParallaxCarouselViewBehavior ParallaxOffset="500" />
+                    </CarouselView.Behaviors>
+                    <CarouselView.ItemsLayout>
+
+                        <LinearItemsLayout
+                            Orientation="Horizontal"
+                            SnapPointsAlignment="Center"
+                            SnapPointsType="Mandatory" />
+                    </CarouselView.ItemsLayout>
+                    <CarouselView.ItemTemplate>
+
+                        <DataTemplate x:DataType="models:Character">
+
+                            <Grid>
+
+                                <!-- MarginTop == 90 == Label.MarginTop + Label.Height + Distance between Label and CarouselItem -->
+                                <!-- MarginBottom == 110 == Button.MarginBottom + Button.Height + Distance between CarouselItem and Button -->
+                                <views:CharactersCarouselCell
+                                    Character="{Binding .}"
+                                    Margin="50,90,50,110" />
+                            </Grid>
+                        </DataTemplate>
+                    </CarouselView.ItemTemplate>
+                </CarouselView>
+
+                <Grid
+                    WidthRequest="250"
+                    HeightRequest="80"
+                    HorizontalOptions="Center"
+                    Grid.Row="2"
+                    Padding="0,0,0,20">
+
+                    <BoxView
+                        Style="{StaticResource LocalBorderBoxViewStyle}"
+                        HeightRequest="60"
+                        WidthRequest="250"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <BoxView.Clip>
+
+                            <!--BUG iOS wrong clipping-->
+                            <PathGeometry
+                                Figures="m 30 0 h 190 a 75 75 0 0 0 30 30 a 75 75 0 0 0 -30 30 h -190 a 75 75 0 0 0 -30 -30 a 75 75 0 0 0 30 -30 z" />
+                        </BoxView.Clip>
+                    </BoxView>
+
+                    <Button
+                        Style="{StaticResource LocalButtonStyle}"
+                        Command="{Binding SelectCharacterCommand}"
+                        Text="{x:Static helpers:Constants+Texts.Select}"
+                        FontSize="30"
+                        HeightRequest="56"
+                        WidthRequest="241"
+                        HorizontalOptions="Center"
+                        VerticalOptions="Center">
+                        <Button.Clip>
+
+                            <!--BUG iOS wrong clipping-->
+                            <PathGeometry
+                                Figures="m 28 0 h 185 a 75 75 0 0 0 28 28 a 75 75 0 0 0 -28 28 h -185 a 75 75 0 0 0 -28 -28 a 75 75 0 0 0 28 -28 z" />
+                        </Button.Clip>
+                    </Button>
+                </Grid>
+            </Grid>
+
+            <!--#endregion Content-->
+        </Grid>
+    </abstractions:BaseContentPage.Content>
+</abstractions:BaseContentPage>

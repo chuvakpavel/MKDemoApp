@@ -1,0 +1,75 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<Application
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:converters="clr-namespace:MKDemoApp.Converters;assembly=MKDemoApp"
+    xmlns:helpers="clr-namespace:MKDemoApp.Helpers;assembly=MKDemoApp"
+    x:Class="MKDemoApp.App">
+
+    <Application.Resources>
+
+        <!--#region Colors-->
+
+        <Color x:Key="BrilliantSilverColor">#A9B0B4</Color>
+        <Color x:Key="BlackCoffeeColor">#1D1817</Color>
+
+        <Color x:Key="PagesBackgroundColor">#1C1414</Color>
+
+        <!--#endregion Colors-->
+
+        <!--#region Pages Styles-->
+
+        <Style TargetType="ContentPage">
+
+            <Setter Property="BackgroundColor" Value="{StaticResource PagesBackgroundColor}" />
+        </Style>
+
+        <!--#endregion Pages Styles-->
+
+        <!--#region Label Styles-->
+
+        <Style x:Key="BaseTitleLabelStyle" TargetType="Label">
+
+            <Setter Property="FontFamily" Value="{x:Static helpers:Constants+Fonts.MkTitle}" />
+        </Style>
+
+        <Style x:Key="WhiteTitleLabelStyle" TargetType="Label"
+               BasedOn="{StaticResource BaseTitleLabelStyle}">
+
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <Style x:Key="SilverTitleLabelStyle" TargetType="Label"
+               BasedOn="{StaticResource BaseTitleLabelStyle}">
+
+            <Setter Property="TextColor" Value="{StaticResource BrilliantSilverColor}" />
+        </Style>
+
+        <Style x:Key="BaseRegularLabelStyle" TargetType="Label">
+
+            <Setter Property="FontFamily" Value="{x:Static helpers:Constants+Fonts.Mk4}" />
+        </Style>
+
+        <Style x:Key="WhiteRegularLabelStyle" TargetType="Label"
+               BasedOn="{StaticResource BaseRegularLabelStyle}">
+
+            <Setter Property="TextColor" Value="White" />
+        </Style>
+
+        <Style x:Key="SilverRegularLabelStyle" TargetType="Label"
+               BasedOn="{StaticResource BaseRegularLabelStyle}">
+
+            <Setter Property="TextColor" Value="{StaticResource BrilliantSilverColor}" />
+        </Style>
+
+        <!--#endregion Label Styles-->
+
+        <!--#region Converters-->
+
+        <converters:DivisionByNumberConverter x:Key="DivisionByNumberConverter" />
+        <converters:ResourceToResourcePathConverter x:Key="ResourceToResourcePathConverter" />
+
+        <!--#endregion Converters-->
+    </Application.Resources>
+</Application>

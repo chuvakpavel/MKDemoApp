@@ -1,0 +1,140 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<ContentView
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:extensions="clr-namespace:MKDemoApp.Extensions;assembly=MKDemoApp"
+    xmlns:helpers="clr-namespace:MKDemoApp.Helpers;assembly=MKDemoApp"
+    x:Class="MKDemoApp.Views.CharactersCarouselCell"
+    x:Name="Cell">
+
+    <ContentView.Resources>
+
+        <Style x:Key="CardOuterBorderFrameStyle" TargetType="Frame">
+
+            <Setter Property="BackgroundColor" Value="{StaticResource BrilliantSilverColor}" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="50" />
+            <Setter Property="Padding" Value="2" />
+        </Style>
+
+        <Style x:Key="CardInnerBorderFrameStyle" TargetType="Frame">
+
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor" Value="Transparent" />
+            <Setter Property="CornerRadius" Value="50" />
+            <Setter Property="Padding" Value="0" />
+            <Setter Property="IsClippedToBounds" Value="True" />
+        </Style>
+
+        <Style x:Key="CardContentFrameStyle" TargetType="Frame">
+
+            <Setter Property="BackgroundColor" Value="Transparent" />
+            <Setter Property="BorderColor" Value="DarkSlateGray" />
+            <Setter Property="CornerRadius" Value="50" />
+            <Setter Property="Padding" Value="2" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="IsClippedToBounds" Value="True" />
+        </Style>
+
+        <Style x:Key="CardBackgroundImageStyle" TargetType="ffImageLoading:CachedImage">
+
+            <Setter Property="Aspect" Value="Fill" />
+            <Setter Property="DownsampleToViewSize" Value="True" />
+            <Setter
+                Property="Source"
+                Value="{extensions:FFImageResource Source={x:Static helpers:Constants+Images.BackboardBackground}}" />
+        </Style>
+    </ContentView.Resources>
+
+    <ContentView.Content>
+
+        <Grid>
+            <Grid.GestureRecognizers>
+
+                <TapGestureRecognizer Tapped="OnTapped" />
+            </Grid.GestureRecognizers>
+
+            <Grid
+                x:Name="FrontOfCard"
+                x:FieldModifier="private">
+
+                <Frame Style="{StaticResource CardOuterBorderFrameStyle}">
+
+                    <Frame Style="{StaticResource CardInnerBorderFrameStyle}">
+
+                        <Grid>
+
+                            <ffImageLoading:CachedImage Style="{StaticResource CardBackgroundImageStyle}" />
+
+                            <Frame Style="{StaticResource CardContentFrameStyle}">
+
+                                <Grid RowDefinitions="*,2*">
+
+                                    <BoxView
+                                        BackgroundColor="Black"
+                                        HeightRequest="60"
+                                        VerticalOptions="Center"
+                                        Grid.Row="0" />
+
+                                    <Label
+                                        Style="{StaticResource WhiteTitleLabelStyle}"
+                                        Text="{Binding Source={x:Reference Cell}, Path=Character.Name}"
+                                        FontSize="40"
+                                        MaxLines="1"
+                                        TranslationX="{Binding Source={x:Reference Cell},
+                                                               Path=Character.ParallaxTranslation,
+                                                               Converter={StaticResource DivisionByNumberConverter}, 
+                                                               ConverterParameter=3}"
+                                        Padding="10"
+                                        HorizontalOptions="Center"
+                                        VerticalOptions="Center"
+                                        Grid.Row="0" />
+
+                                    <ffImageLoading:CachedImage
+                                        Source="{Binding Source={x:Reference Cell},
+                                                         Path=Character.Image,
+                                                         Converter={StaticResource ResourceToResourcePathConverter}}"
+                                        Aspect="AspectFit"
+                                        TranslationX="{Binding Source={x:Reference Cell}, Path=Character.ParallaxTranslation}"
+                                        HorizontalOptions="CenterAndExpand"
+                                        VerticalOptions="End"
+                                        Grid.Row="1" />
+                                </Grid>
+                            </Frame>
+                        </Grid>
+                    </Frame>
+                </Frame>
+            </Grid>
+
+            <Grid
+                x:Name="BackOfCard"
+                x:FieldModifier="private"
+                RotationY="-270">
+
+                <Frame Style="{StaticResource CardOuterBorderFrameStyle}">
+
+                    <Frame Style="{StaticResource CardInnerBorderFrameStyle}">
+
+                        <Grid>
+
+                            <ffImageLoading:CachedImage
+                                Style="{StaticResource CardBackgroundImageStyle}"
+                                RotationX="180" />
+
+                            <Frame Style="{StaticResource CardContentFrameStyle}">
+
+                                <Label
+                                    Style="{StaticResource WhiteRegularLabelStyle}"
+                                    Text="{Binding Source={x:Reference Cell}, Path=Character.Info}"
+                                    FontSize="20"
+                                    Padding="10,25" />
+                            </Frame>
+                        </Grid>
+                    </Frame>
+                </Frame>
+            </Grid>
+        </Grid>
+    </ContentView.Content>
+</ContentView>

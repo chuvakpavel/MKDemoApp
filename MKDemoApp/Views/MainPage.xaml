@@ -1,0 +1,61 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<abstractions:BaseContentPage
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:effects="http://xamarin.com/schemas/2020/toolkit"
+    xmlns:ffImageLoading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:abstractions="clr-namespace:MKDemoApp.Abstractions;assembly=MKDemoApp"
+    xmlns:extensions="clr-namespace:MKDemoApp.Extensions;assembly=MKDemoApp"
+    xmlns:helpers="clr-namespace:MKDemoApp.Helpers;assembly=MKDemoApp"
+    xmlns:viewModels="clr-namespace:MKDemoApp.ViewModels;assembly=MKDemoApp"
+    x:Class="MKDemoApp.Views.MainPage"
+    x:DataType="viewModels:MainViewModel"
+    NavigationPage.HasNavigationBar="False"
+    BackgroundColor="{StaticResource PagesBackgroundColor}">
+
+    <abstractions:BaseContentPage.Content>
+
+        <Grid>
+
+            <Label
+                Style="{StaticResource WhiteTitleLabelStyle}"
+                Text="{x:Static helpers:Constants+Texts.TestYourMight}"
+                FontSize="30"
+                HorizontalOptions="Center"
+                VerticalOptions="Start" 
+                Margin="0,70,0,0"/>
+
+            <ffImageLoading:CachedImage
+                x:Name="StartButton"
+                Source="{extensions:FFImageResource Source={x:Static helpers:Constants+Images.Logo}}"
+                Aspect="AspectFit"
+                DownsampleToViewSize="True"
+                Margin="70"
+                effects:TouchEffect.Command="{Binding GoToCarouselCommand}"
+                effects:TouchEffect.PressedOpacity="0.9"
+                effects:TouchEffect.PressedScale="0.95" />
+
+            <Label
+                Style="{StaticResource SilverRegularLabelStyle}"
+                TextTransform="Uppercase"
+                FontSize="20"
+                HorizontalTextAlignment="Center"
+                VerticalOptions="End"
+                Margin="0,0,0,30">
+                <Label.FormattedText>
+
+                    <FormattedString>
+
+                        <Span Text="{x:Static helpers:Constants+Texts.ThereAreFates}" />
+                        <Span Text="&#10;" />
+                        <Span Text="{x:Static helpers:Constants+Texts.WorseThan}" />
+                        <Span 
+                            Text="{x:Static helpers:Constants+Texts.Death}"
+                            TextColor="White"  />
+                    </FormattedString>
+                </Label.FormattedText>
+            </Label>
+        </Grid>
+    </abstractions:BaseContentPage.Content>
+</abstractions:BaseContentPage>

@@ -1,0 +1,93 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProduceReferenceAssembly>true</ProduceReferenceAssembly>
+    <LangVersion>9</LangVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <DebugType>portable</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Audio\mk_background.mp3" />
+    <None Remove="Resources\Fonts\mk_4.ttf" />
+    <None Remove="Resources\Fonts\mk_title.ttf" />
+    <None Remove="Resources\Images\backboard_background.jpg" />
+    <None Remove="Resources\Images\mk_ermak.png" />
+    <None Remove="Resources\Images\mk_erron_black.png" />
+    <None Remove="Resources\Images\mk_johnny_cage.png" />
+    <None Remove="Resources\Images\mk_kano.png" />
+    <None Remove="Resources\Images\mk_kenshi.png" />
+    <None Remove="Resources\Images\mk_kitana.png" />
+    <None Remove="Resources\Images\mk_kung_lao.png" />
+    <None Remove="Resources\Images\mk_liu_kang.png" />
+    <None Remove="Resources\Images\mk_logo.png" />
+    <None Remove="Resources\Images\mk_logo_2.png" />
+    <None Remove="Resources\Images\mk_quan_chi.png" />
+    <None Remove="Resources\Images\mk_raiden.png" />
+    <None Remove="Resources\Images\mk_scorpion.png" />
+    <None Remove="Resources\Images\mk_sub_zero.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Audio\mk_background.mp3" />
+    <EmbeddedResource Include="Resources\Fonts\mk_4.ttf" />
+    <EmbeddedResource Include="Resources\Fonts\mk_title.ttf" />
+    <EmbeddedResource Include="Resources\Images\backboard_background.jpg" />
+    <EmbeddedResource Include="Resources\Images\mk_ermak.png" />
+    <EmbeddedResource Include="Resources\Images\mk_erron_black.png" />
+    <EmbeddedResource Include="Resources\Images\mk_johnny_cage.png" />
+    <EmbeddedResource Include="Resources\Images\mk_kano.png" />
+    <EmbeddedResource Include="Resources\Images\mk_kenshi.png" />
+    <EmbeddedResource Include="Resources\Images\mk_kitana.png" />
+    <EmbeddedResource Include="Resources\Images\mk_kung_lao.png" />
+    <EmbeddedResource Include="Resources\Images\mk_liu_kang.png" />
+    <EmbeddedResource Include="Resources\Images\mk_logo.png" />
+    <EmbeddedResource Include="Resources\Images\mk_logo_2.png" />
+    <EmbeddedResource Include="Resources\Images\mk_quan_chi.png" />
+    <EmbeddedResource Include="Resources\Images\mk_raiden.png" />
+    <EmbeddedResource Include="Resources\Images\mk_scorpion.png" />
+    <EmbeddedResource Include="Resources\Images\mk_sub_zero.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fody" Version="6.5.2">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="PropertyChanged.Fody" Version="3.4.0" />
+    <PackageReference Include="Rg.Plugins.Popup" Version="2.0.0.12" />
+    <PackageReference Include="Xamarin.CommunityToolkit" Version="1.2.0" />
+    <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
+    <PackageReference Include="Xamarin.Forms" Version="5.0.0.2012" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.6.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Rg.Plugins.Popup">
+      <HintPath>..\..\..\..\..\.nuget\packages\rg.plugins.popup\2.0.0.12\lib\monoandroid10.0\Rg.Plugins.Popup.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Views\CharactersCarouselCell.xaml.cs">
+      <DependentUpon>CharactersCarouselCell.xaml</DependentUpon>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Views\CharactersCarouselCell.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\CharactersCarouselPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Views\SelectionInfoPopup.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+</Project>
