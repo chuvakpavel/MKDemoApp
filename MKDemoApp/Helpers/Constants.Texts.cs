@@ -14,7 +14,7 @@
             public const string ThereAreFates = "There are fates ";
             public const string WorseThan = "worse than ";
             public const string Death = "death";
-            public const string TestYourMight = "Test your might!";
+            public const string TestYourMight = "Test your might";
 
             public const string Ermak = "Ermak";
             public const string ErmakInfo =
